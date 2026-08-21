@@ -1,0 +1,9 @@
+Nissan|Skyline GT-R R34|Rahim Ahmed|01712345678|85000|RB26DETT|true
+Toyota|Supra MK4|Karim Hasan|01823456789|62000|2JZ-GTE|true
+Honda|Civic Type R FK8|Sakib Islam|01934567890|41000|K20C1|true
+Mazda|RX-7 FD3S|Tanvir Hossain|01645678901|73000|13B-REW|true
+Mitsubishi|Lancer Evolution IX|Fahim Chowdhury|01556789012|68000|4G63T|true
+Subaru|Impreza WRX STI|Nabil Rahman|01367890123|92000|EJ257|true
+BMW|M3 E46|Arif Khan|01478901234|105000|S54B32|true
+Mercedes-Benz|C63 AMG W204|Hasan Mahmud|01789012345|78000|M156|true
+Toyota|GT86|Rafi Ahmed|01890123456|55000|4U-GSE|true
