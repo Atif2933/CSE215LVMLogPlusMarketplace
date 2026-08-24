@@ -7,9 +7,7 @@ public class admin extends User {
         super(ID,password,name,phonenum);
     }
 
-    public void removeUser(UserManager manager, User user){
-        manager.removeUser(user);
-    }
+
 
     public static admin readAdmin(){
         File adminData = new File("admindata.txt");
@@ -17,8 +15,8 @@ public class admin extends User {
         try{
             FileReader fr = new FileReader(adminData);
             BufferedReader br = new BufferedReader(fr);
-            System.out.println("Looking!");
-            System.out.println(adminData.getAbsolutePath());
+            //System.out.println("Looking!");
+            //System.out.println(adminData.getAbsolutePath());
             int ID = Integer.parseInt(br.readLine());
             String password = br.readLine();
             String name = br.readLine();

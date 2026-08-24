@@ -2,7 +2,7 @@ package org.atf2933;
 import java.util.*;
 import java.io.*;
 
-public class UserManager extends User {
+public class UserManager extends User implements UserManagerMethods {
 
 
     public UserManager(int ID, String password, String name,String phonenum){
@@ -11,7 +11,19 @@ public class UserManager extends User {
     }
 
 
-    public void createUser(User userobj){
+    public void createUser(User userobj) throws AlreadyRegisteredUserException{
+        for (User user : getUserArray()) {
+
+            if (user.getID() == userobj.getID() ||
+                    user.getName().equalsIgnoreCase(userobj.getName()) ||
+                    user.getPhonenum().equals(userobj.getPhonenum())) {
+
+                throw new AlreadyRegisteredUserException(
+                        "This user is already registered!"
+                );
+            }
+        }
+
         getUserArray().add(userobj);
         saveUser();
     }
@@ -70,10 +82,5 @@ public class UserManager extends User {
             System.out.println("Error loading users!");
         }
     }
-    public void displayUsers(){
 
-        for(User u:getUserArray()){
-            System.out.println(u);
-        }
-    }
 }

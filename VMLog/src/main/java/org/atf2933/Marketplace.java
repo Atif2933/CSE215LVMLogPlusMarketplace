@@ -3,7 +3,7 @@ package org.atf2933;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Marketplace {
+public class Marketplace implements MarketplaceMethods {
 
     public Marketplace(){
         loadVehicle();
@@ -11,7 +11,13 @@ public class Marketplace {
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
      File fileCars = new File("allcars.txt");
 
-    public void addCar(Vehicle car){
+    public void addCar(Vehicle car) throws AlreadyRegisteredVehicleException{
+
+        for(Vehicle vehicleget: vehicles){
+            if(vehicleget.getOwnerName().equalsIgnoreCase(car.getOwnerName())&&vehicleget.getBrandName().equalsIgnoreCase(car.getBrandName())&&vehicleget.getModelName().equalsIgnoreCase(car.getModelName())){
+                throw new AlreadyRegisteredVehicleException("Unable to add vehicle, Vehicle already registered!");
+            }
+        }
         vehicles.add(car);
         saveVehicles();
     }
@@ -70,7 +76,7 @@ public class Marketplace {
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
-    public ArrayList<Vehicle> listedCars = new ArrayList<>();
+
     public void removeVehicle(Vehicle car){
         vehicles.remove(car);
         saveVehicles();

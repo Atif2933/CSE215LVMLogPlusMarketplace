@@ -13,9 +13,9 @@ public class Swing {
     public Swing() {
         frame.setSize(1366, 768);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout()); // Using BorderLayout for better sizing control
+        frame.setLayout(new BorderLayout());
 
-        // Updated title with custom large font and centered alignment
+
         JLabel title = new JLabel(
                 "Welcome to Vehicle Maintenance Log! Select your access level to continue-",
                 SwingConstants.CENTER
@@ -23,18 +23,18 @@ public class Swing {
         title.setFont(new Font("Arial", Font.BOLD, 28)); // Large title text
         title.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0)); // Spacing around title
 
-        // Panel for side-by-side buttons with horizontal gap
+
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
 
         JButton adminb = new JButton("Admin");
         JButton user  = new JButton("User");
 
-        // Larger font for button text
+
         Font buttonFont = new Font("Arial", Font.BOLD, 22);
         adminb.setFont(buttonFont);
         user.setFont(buttonFont);
 
-        // Explicit compact sizing for the buttons
+
         Dimension buttonSize = new Dimension(200, 60);
         adminb.setPreferredSize(buttonSize);
         user.setPreferredSize(buttonSize);
@@ -67,7 +67,7 @@ public class Swing {
 
             adminFrame.add(loginButton);
             loginButton.addActionListener(a -> {
-                System.out.println("Pressed");
+                //System.out.println("Pressed");
 
                 int ID;
 
@@ -97,7 +97,7 @@ public class Swing {
                     JFrame menu = new JFrame("Menu Selection");
                     menu.setSize(500,300);
                     menu.setLayout(null);
-                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                     JButton marketplaceButton = new JButton("Open Marketplace");
                     marketplaceButton.setBounds(100, 80, 280, 50);
@@ -157,10 +157,10 @@ public class Swing {
                             addUserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                             JLabel IDLabel = new JLabel("User ID:");
-                            idLabel.setBounds(50, 40, 100, 30);
+                            IDLabel.setBounds(50, 40, 100, 30);
 
                             JTextField IDField = new JTextField();
-                            idField.setBounds(180, 40, 200, 30);
+                            IDField.setBounds(180, 40, 200, 30);
 
 
                             JLabel passwordLabel = new JLabel("Password:");
@@ -201,30 +201,36 @@ public class Swing {
                             addUserFrame.setVisible(true);
 
                             submitButton.addActionListener(s -> {
+                                try {
 
-                                User newUser = new UserManager(
-                                        Integer.parseInt(idField.getText()),
-                                        passwordField.getText(),
-                                        nameField.getText(),
-                                        phoneField.getText()
-                                );
+                                    User newUser = new UserManager(
+                                            Integer.parseInt(IDField.getText()),
+                                            passwordField.getText(),
+                                            nameField.getText(),
+                                            phoneField.getText()
+                                    );
 
-                                userManager.createUser(newUser);
+                                    userManager.createUser(newUser);
 
-                                displayedUsers.add(newUser);
+                                    displayedUsers.add(newUser);
 
-                                userListTable.addRow(new Object[]{
-                                        newUser.getID(),
-                                        newUser.getName(),
-                                        newUser.getPhonenum()
-                                });
+                                    userListTable.addRow(new Object[]{
+                                            newUser.getID(),
+                                            newUser.getName(),
+                                            newUser.getPhonenum()
+                                    });
 
-                                JOptionPane.showMessageDialog(
-                                        addUserFrame,
-                                        "User Added Successfully!"
-                                );
+                                    JOptionPane.showMessageDialog(
+                                            addUserFrame,
+                                            "User Added Successfully!"
+                                    );
 
-                                addUserFrame.dispose();
+                                    addUserFrame.dispose();
+                                }catch(AlreadyRegisteredUserException arue){
+                                    JOptionPane.showMessageDialog(
+                                            addUserFrame,
+                                            arue.getMessage());
+                                }
                             });
                         });
 
@@ -272,13 +278,6 @@ public class Swing {
                                 );
                             }
                         });
-
-
-
-
-
-
-
                     });
                     signedUsers.setVisible(true);
 
@@ -299,7 +298,7 @@ public class Swing {
 
                         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
                         JTable carTable = new JTable(tableModel);
-                        System.out.println("Number of cars: " + marketplace.getVehicles().size());
+                        //System.out.println("Number of cars: " + marketplace.getVehicles().size());
                         ArrayList<Vehicle> listedCars = new ArrayList<>();
 
                         for (Vehicle car : marketplace.getVehicles()) {
@@ -387,29 +386,37 @@ public class Swing {
                             listCar.setVisible(true);
 
                             submit.addActionListener(s->{
-                                Vehicle listCarForSale = new Vehicle(brandField.getText(),
-                                        modelField.getText(),
-                                        ownerField.getText(),
-                                        phoneField.getText(),
-                                        Integer.parseInt(mileageField.getText()),
-                                        engineField.getText(),
-                                        true
-                                );
+                                try {
+                                    Vehicle listCarForSale = new Vehicle(brandField.getText(),
+                                            modelField.getText(),
+                                            ownerField.getText(),
+                                            phoneField.getText(),
+                                            Integer.parseInt(mileageField.getText()),
+                                            engineField.getText(),
+                                            true
+                                    );
 
-                                marketplace.addCar(listCarForSale);
-                                listedCars.add(listCarForSale);
-                                tableModel.addRow( new Object[]{
-                                                listCarForSale.getModelName(),
-                                                listCarForSale.getBrandName(),
-                                                listCarForSale.getOwnerName(),
-                                                listCarForSale.getOwnerPhone(),
-                                                listCarForSale.getMileage(),
-                                                listCarForSale.getEngineModel()
-                                        }
-                                );
+                                    marketplace.addCar(listCarForSale);
+                                    listedCars.add(listCarForSale);
+                                    tableModel.addRow(new Object[]{
+                                                    listCarForSale.getModelName(),
+                                                    listCarForSale.getBrandName(),
+                                                    listCarForSale.getOwnerName(),
+                                                    listCarForSale.getOwnerPhone(),
+                                                    listCarForSale.getMileage(),
+                                                    listCarForSale.getEngineModel()
+                                            }
+                                    );
 
-                                JOptionPane.showMessageDialog(listCar, "Listed For Sale Successfully!");
-                                listCar.dispose();
+                                    JOptionPane.showMessageDialog(listCar, "Listed For Sale Successfully!");
+                                    listCar.dispose();
+                                }catch(AlreadyRegisteredVehicleException arve){
+                                    JOptionPane.showMessageDialog(
+                                            listCar,
+                                            arve.getMessage());
+
+                                }
+
 
                             });
 
@@ -462,35 +469,42 @@ public class Swing {
             userFrame.setSize(1366,768);
             userFrame.setLayout(new FlowLayout());
 
-            JLabel idLabel = new JLabel("ID: ");
-            JTextField idField = new JTextField(8);
+            JLabel nameLabel = new JLabel("Name: ");
+            JTextField nameField = new JTextField(8);
 
             JLabel passLabel = new JLabel("Password: ");
             JTextField passField = new JTextField(8);
 
             JButton loginButton = new JButton("Login");
 
-            userFrame.add(idLabel);
-            userFrame.add(idField);
+
+            userFrame.add(nameLabel);
+            userFrame.add(nameField);
 
             userFrame.add(passLabel);
             userFrame.add(passField);
 
             userFrame.add(loginButton);
+
+            //signUpButton.addActionListener(su->{
+
+               // String name = new String(nameField.getText());
+
+               // String Password = new String(passField.getText());
+
+                //try{
+
+
+
+                //} catch(AlreadyRegisteredUserException a7){
+                    //a7.getMessage();
+               // }
+
+            //});
             loginButton.addActionListener(a -> {
-                System.out.println("Pressed");
+              //  System.out.println("Pressed");
 
-                int ID;
-
-                try {
-                    ID = Integer.parseInt(idField.getText());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(
-                            userFrame,
-                            "ID must contain numbers only!"
-                    );
-                    return;
-                }
+                String name = new String(nameField.getText());
 
                 String Password = new String(passField.getText());
 
@@ -502,7 +516,7 @@ public class Swing {
 
                 for(User userFind: userManager.getUserArray()){
 
-                if (ID == userFind.getID() &&
+                if (name.equals(userFind.getName()) &&
                         Password.equals(userFind.getPassword())) {
 
                     JOptionPane.showMessageDialog(
@@ -517,25 +531,30 @@ public class Swing {
                     JFrame menu = new JFrame("Menu Selection");
                     menu.setSize(500,300);
                     menu.setLayout(null);
-                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                     JButton marketplaceButton = new JButton("Open Marketplace");
                     marketplaceButton.setBounds(100, 80, 280, 50);
 
-                    JButton maintenanceButton = new JButton("Open Maintenance Log");
-                    maintenanceButton.setBounds(100, 150, 280, 50);
 
-                    menu.add(maintenanceButton);
+
+
                     menu.add(marketplaceButton);
-                    maintenanceButton.addActionListener(m1->{
 
-                    });
 
                     marketplaceButton.addActionListener(m2->{
                         JFrame marketplaceFrame = new JFrame("Marketplace");
                         marketplaceFrame.setSize(800, 500);
                         marketplaceFrame.setLayout(null);
                         marketplaceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        JButton listCarButton = new JButton("List Car for Sale");
+
+
+                        listCarButton.setBounds(20, 350, 200, 40);
+
+
+                        marketplaceFrame.add(listCarButton);
+
 
                         String[] columns = {
                                 "Car Model",
@@ -548,7 +567,7 @@ public class Swing {
 
                         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
                         JTable carTable = new JTable(tableModel);
-                        System.out.println("Number of cars: " + marketplace.getVehicles().size());
+                        //System.out.println("Number of cars: " + marketplace.getVehicles().size());
                         for (Vehicle car : marketplace.getVehicles()) {
 
 
@@ -566,8 +585,102 @@ public class Swing {
                         JScrollPane scrollPane = new JScrollPane(carTable);
                         scrollPane.setBounds(20, 20, 840, 300);
                         marketplaceFrame.add(scrollPane);
+                        listCarButton.addActionListener(lcb -> {
+
+                            JFrame listFrame = new JFrame("List Car for Sale");
+                            listFrame.setSize(500, 500);
+                            listFrame.setLayout(null);
+                            listFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                            JLabel brandLabel = new JLabel("Brand:");
+                            JLabel modelLabel = new JLabel("Model:");
+                            JLabel engineLabel = new JLabel("Engine Model:");
+                            JLabel mileageLabel = new JLabel("Mileage:");
+                            JLabel phoneLabel = new JLabel("Telephone:");
+
+                            JTextField brandField = new JTextField();
+                            JTextField modelField = new JTextField();
+                            JTextField engineField = new JTextField();
+                            JTextField mileageField = new JTextField();
+                            JTextField phoneField = new JTextField();
+
+                            brandLabel.setBounds(50, 50, 120, 30);
+                            brandField.setBounds(180, 50, 200, 30);
+
+                            modelLabel.setBounds(50, 100, 120, 30);
+                            modelField.setBounds(180, 100, 200, 30);
+
+                            engineLabel.setBounds(50, 150, 120, 30);
+                            engineField.setBounds(180, 150, 200, 30);
+
+                            mileageLabel.setBounds(50, 200, 120, 30);
+                            mileageField.setBounds(180, 200, 200, 30);
+
+                            phoneLabel.setBounds(50, 250, 120, 30);
+                            phoneField.setBounds(180, 250, 200, 30);
+
+                            JButton submitButton = new JButton("List Vehicle");
+                            submitButton.setBounds(150, 330, 180, 40);
+
+                            listFrame.add(brandLabel);
+                            listFrame.add(brandField);
+
+                            listFrame.add(modelLabel);
+                            listFrame.add(modelField);
+
+                            listFrame.add(engineLabel);
+                            listFrame.add(engineField);
+
+                            listFrame.add(mileageLabel);
+                            listFrame.add(mileageField);
+
+                            listFrame.add(phoneLabel);
+                            listFrame.add(phoneField);
+
+                            listFrame.add(submitButton);
+
+                            submitButton.addActionListener(sb->{
+                                try{
+                                    Vehicle newListCar = new Vehicle(
+                                            modelField.getText(),
+                                            brandField.getText(),
+                                            name, // logged-in user's name
+                                            phoneField.getText(),
+                                            Integer.parseInt(mileageField.getText()),
+                                            engineField.getText(),
+                                            true
+                                    );
+                                    marketplace.addCar(newListCar);
+
+                                    tableModel.addRow(new Object[]{
+                                                    newListCar.getModelName(),
+                                                    newListCar.getBrandName(),
+                                                    newListCar.getOwnerName(),
+                                                    newListCar.getOwnerPhone(),
+                                                    newListCar.getMileage(),
+                                                    newListCar.getEngineModel()
+                                            }
+                                    );
+
+                                    JOptionPane.showMessageDialog(
+                                            listFrame,
+                                            "Vehicle successfully listed for sale!"
+                                    );
+
+                                    listFrame.dispose();
+
+
+                                } catch (AlreadyRegisteredVehicleException arve2){
+                                    arve2.getMessage();
+                                }
+                            });
+
+                            listFrame.setVisible(true);
+                        });
                         marketplaceFrame.setVisible(true);
                     });
+
+
                     menu.setVisible(true);
                     break;
                 }

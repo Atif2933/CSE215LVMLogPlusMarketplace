@@ -1,7 +1,5 @@
 package org.atf2933;
 
-import java.util.ArrayList;
-
 public class Vehicle {
 
     private String brandName;
@@ -25,39 +23,9 @@ public class Vehicle {
 
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public void setEngineModel(String engineModel) {
-        this.engineModel = engineModel;
-    }
-
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
-    public void setOwnerPhone(String ownerPhone) {
-        this.ownerPhone = ownerPhone;
-    }
-
-    public void setForSale(boolean isForSale){
-        this.forSale = forSale;
-    }
-
     public boolean isForSale() {
         return forSale;
     }
-
-
 
     public String getBrandName(){
         return brandName;
@@ -83,6 +51,6 @@ public class Vehicle {
         return ownerName;
     }
 
-    ArrayList<Vehicle> cars = new ArrayList<>();
+
 
 }

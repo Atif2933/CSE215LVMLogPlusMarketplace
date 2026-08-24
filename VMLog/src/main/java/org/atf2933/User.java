@@ -16,21 +16,6 @@ public abstract class User {
        this.phonenum = phonenum;
    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     public String getName(){
        return name;
     }
